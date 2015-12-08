@@ -16,12 +16,16 @@ export default class First extends Component {
 		super(props);
         this.state = {
             numberString: props.numberString,
-            sets: [0,0,0]
+            sets: ['','','']
         };
 	}
 
     componentWillMount() {
-    	var numArr = this.props.numberString.split(",");
+    	var numArr = this.props.numberString.split(",").map(
+    		function(val){ 
+    			return parseInt(val); 
+    		});
+
         this.calculateTotal( numArr );
     }
 
@@ -42,8 +46,24 @@ export default class First extends Component {
 		);
 	}
 
-    calculateTotal() {
-    	//add to lowest set number with recursion
+    calculateTotal(numArr) {
+    	var zeroArr = [0,0,0],
+    		{sets} = this.state;
+    	
+    	numArr = numArr.sort(function(a, b){return b-a});
+
+    	this.addToLowestSet(numArr, zeroArr, sets);
+    }
+
+    addToLowestSet(a, z, s){
+    	if(a.length < 1)
+			return s;
+    	
+		var index = z.indexOf(Math.min.apply(Math, z));
+		z[index] = z[index] + a[0];
+		s[index] = s[index] + a[0]+ ",";
+		a.shift();
+		this.addToLowestSet(a, z, s);
     }
 
 }
