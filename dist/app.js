@@ -19808,18 +19808,60 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Second = (function (_Component) {
-		_inherits(Second, _Component);
+	var Table = (function (_Component) {
+		_inherits(Table, _Component);
+
+		function Table() {
+			_classCallCheck(this, Table);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Table).apply(this, arguments));
+		}
+
+		_createClass(Table, [{
+			key: "render",
+			value: function render() {
+				var numbers = this.props.numbers;
+
+				return _react2.default.createElement(
+					"table",
+					null,
+					_react2.default.createElement(
+						"tbody",
+						null,
+						_react2.default.createElement(
+							"tr",
+							null,
+							_react2.default.createElement("td", null),
+							numbers.map(function (val, i) {
+								return _react2.default.createElement(
+									"td",
+									{ key: i },
+									val
+								);
+							})
+						)
+					)
+				);
+			}
+		}]);
+
+		return Table;
+	})(_react.Component);
+
+	exports.default = Table;
+
+	var Second = (function (_Component2) {
+		_inherits(Second, _Component2);
 
 		function Second(props) {
 			_classCallCheck(this, Second);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Second).call(this, props));
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Second).call(this, props));
 
-			_this.state = {
+			_this2.state = {
 				numbers: []
 			};
-			return _this;
+			return _this2;
 		}
 
 		_createClass(Second, [{
@@ -19830,20 +19872,22 @@
 
 				var value = this._input.value;
 
+				this._input.value = "";
+
 				numbers.push(parseInt(value));
 
 				this.setState({
 					numbers: numbers
 				});
-
-				this._input.value = "";
 			}
 		}, {
 			key: "render",
 			value: function render() {
-				var _this2 = this;
+				var _this3 = this;
 
 				var numbers = this.state.numbers;
+
+				var showTable = numbers.length ? _react2.default.createElement(Table, { numbers: numbers }) : "fill in the numbers";
 
 				return _react2.default.createElement(
 					"div",
@@ -19854,7 +19898,7 @@
 						"Second question"
 					),
 					_react2.default.createElement("input", { type: "text", ref: function ref(c) {
-							return _this2._input = c;
+							return _this3._input = c;
 						} }),
 					_react2.default.createElement(
 						"button",
@@ -19866,7 +19910,7 @@
 						null,
 						"Check"
 					),
-					numbers
+					showTable
 				);
 			}
 		}]);
