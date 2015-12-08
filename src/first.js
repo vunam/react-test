@@ -35,7 +35,7 @@ export default class First extends Component {
 
 		return (
 			<div>
-				<h1>First question</h1>
+				<h2>First question</h2>
 
 				{numberString} <br/>
 
