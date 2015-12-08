@@ -1,12 +1,12 @@
 {
-  "name": "oyst-demo",
+  "name": "react-test",
   "version": "0.0.1",
-  "description": "Answers to the test from Oyst",
+  "description": "Answers to a javascript test",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Vu Nam Nguyen <vu@strangelab.co.uk> (http://www.strangelab.co.uk)",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.3.15",
