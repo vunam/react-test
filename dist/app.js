@@ -62,6 +62,10 @@
 
 	var _second2 = _interopRequireDefault(_second);
 
+	var _third = __webpack_require__(161);
+
+	var _third2 = _interopRequireDefault(_third);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactDom2.default.render(_react2.default.createElement(
@@ -69,7 +73,7 @@
 		null,
 		_react2.default.createElement(_first2.default, { numberString: '1,2,4,7,1,6,2,8' }),
 		_react2.default.createElement(_second2.default, null),
-		_react2.default.createElement(Third, { collection: '| asarotum | boris | disentranced | dispread | fluctuation | irremeable | men | noncoloring | reverential | unseignorial |' })
+		_react2.default.createElement(_third2.default, { collection: '| asarotum | boris | disentranced | dispread | fluctuation | irremeable | men | noncoloring | reverential | unseignorial |' })
 	), document.getElementById('content'));
 
 /***/ },
@@ -19971,6 +19975,118 @@
 	})(_react.Component);
 
 	exports.default = Second;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Third = (function (_Component) {
+		_inherits(Third, _Component);
+
+		function Third(props) {
+			_classCallCheck(this, Third);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Third).call(this, props));
+
+			_this.state = {
+				list: _react2.default.createElement(
+					"p",
+					null,
+					_this.props.collection
+				)
+			};
+			return _this;
+		}
+
+		_createClass(Third, [{
+			key: "clickHandler",
+			value: function clickHandler(e) {
+				var collection = this.props.collection;
+
+				var search = this._input.value;
+
+				this.setState({
+					list: this.highlightPosition(collection, search)
+				});
+			}
+		}, {
+			key: "highlightPosition",
+			value: function highlightPosition(list, search) {
+				var index = list.indexOf(search);
+
+				if (index < 0) return _react2.default.createElement(
+					"p",
+					null,
+					list
+				);
+
+				var before = list.substr(0, index);
+				var after = list.substr(index + search.length, list.length);
+
+				return _react2.default.createElement(
+					"p",
+					null,
+					before,
+					_react2.default.createElement(
+						"strong",
+						null,
+						search
+					),
+					after
+				);
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this2 = this;
+
+				var list = this.state.list;
+
+				return _react2.default.createElement(
+					"div",
+					null,
+					_react2.default.createElement(
+						"h2",
+						null,
+						"Third question"
+					),
+					_react2.default.createElement("input", { type: "text", ref: function ref(c) {
+							return _this2._input = c;
+						} }),
+					_react2.default.createElement(
+						"button",
+						{ onClick: this.clickHandler.bind(this) },
+						"Search"
+					),
+					list
+				);
+			}
+		}]);
+
+		return Third;
+	})(_react.Component);
+
+	exports.default = Third;
 
 /***/ }
 /******/ ]);

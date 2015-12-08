@@ -6,31 +6,44 @@ export default class Third extends Component {
 		super(props);
 
         this.state = {
-            list: this.props.collection}
+            list: <p>{this.props.collection}</p>
         };
 	}
 
-	onClickSearch(e) {
-		const {list} = this.state;
+	clickHandler(e) {
+		const {collection} = this.props;
 		var search = this._input.value;
 
-		var index = list.indexOf(search);
-		
+		this.setState({
+			list: this.highlightPosition(collection, search)
+		})
 	}
 
+	highlightPosition(list, search){
+		var index = list.indexOf(search);
+
+		if(index < 0)
+			return <p>{list}</p>
+
+		var before = list.substr(0, index);
+		var after = list.substr(index + search.length, list.length);
+
+		return 	<p>
+					{before}<strong>{search}</strong>{after}
+				</p>;
+	}
 
 	render() {
 		var {list} = this.state;
 		
 		return (
 			<div>
-				<h1>Third question</h1>
+				<h2>Third question</h2>
 
 				<input type="text" ref={(c) => this._input = c} />
-				<button onClick={this.onClickSearch}>Search</button>
-				<p>
-					{list}
-				</p>
+				<button onClick={this.clickHandler.bind(this)}>Search</button>
+
+				{list}
 
 			</div>
 		);
