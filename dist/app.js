@@ -68,7 +68,8 @@
 		'div',
 		null,
 		_react2.default.createElement(_first2.default, { numberString: '1,2,4,7,1,6,2,8' }),
-		_react2.default.createElement(_second2.default, null)
+		_react2.default.createElement(_second2.default, null),
+		_react2.default.createElement(Third, { collection: '| asarotum | boris | disentranced | dispread | fluctuation | irremeable | men | noncoloring | reverential | unseignorial |' })
 	), document.getElementById('content'));
 
 /***/ },
@@ -19948,7 +19949,7 @@
 				var len = arr.length;
 				if (len < 2) return false;
 
-				//This is also consecutive: 12 14 16 18 or 3 2 1
+				//Needed since this is also consecutive: 12 14 16 18 or 3 2 1
 				var step = arr[1] - arr[0];
 
 				for (var i = 1; i < len; i++) {
