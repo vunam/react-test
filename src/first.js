@@ -21,7 +21,7 @@ export default class First extends Component {
 	}
 
     componentWillMount() {
-    	var numArr = this.props.numberString.split(",").map(
+    	var numArr = this.state.numberString.split(",").map(
     		function(val){ 
     			return parseInt(val); 
     		});

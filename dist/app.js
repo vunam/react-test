@@ -58,12 +58,17 @@
 
 	var _first2 = _interopRequireDefault(_first);
 
+	var _second = __webpack_require__(160);
+
+	var _second2 = _interopRequireDefault(_second);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactDom2.default.render(_react2.default.createElement(
 		'div',
 		null,
-		_react2.default.createElement(_first2.default, { numberString: '1,2,4,7,1,6,2,8' })
+		_react2.default.createElement(_first2.default, { numberString: '1,2,4,7,1,6,2,8' }),
+		_react2.default.createElement(_second2.default, null)
 	), document.getElementById('content'));
 
 /***/ },
@@ -19657,7 +19662,7 @@
 /* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -19687,10 +19692,10 @@
 		}
 
 		_createClass(Set, [{
-			key: "render",
+			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					"div",
+					'div',
 					null,
 					this.props.number
 				);
@@ -19712,45 +19717,65 @@
 
 			_this2.state = {
 				numberString: props.numberString,
-				sets: [0, 0, 0]
+				sets: ['', '', '']
 			};
 			return _this2;
 		}
 
 		_createClass(First, [{
-			key: "componentWillMount",
+			key: 'componentWillMount',
 			value: function componentWillMount() {
-				var numArr = this.props.numberString.split(",");
+				var numArr = this.state.numberString.split(",").map(function (val) {
+					return parseInt(val);
+				});
 
 				this.calculateTotal(numArr);
 			}
 		}, {
-			key: "render",
+			key: 'render',
 			value: function render() {
 				var _state = this.state;
 				var numberString = _state.numberString;
 				var sets = _state.sets;
 
 				return _react2.default.createElement(
-					"div",
+					'div',
 					null,
 					_react2.default.createElement(
-						"h1",
+						'h1',
 						null,
-						"First question"
+						'First question'
 					),
 					numberString,
-					" ",
-					_react2.default.createElement("br", null),
+					' ',
+					_react2.default.createElement('br', null),
 					sets.map(function (val, i) {
 						return _react2.default.createElement(Set, { number: val, key: i });
 					})
 				);
 			}
 		}, {
-			key: "calculateTotal",
-			value: function calculateTotal() {
-				//add to lowest set number with recursion
+			key: 'calculateTotal',
+			value: function calculateTotal(numArr) {
+				var zeroArr = [0, 0, 0];
+				var sets = this.state.sets;
+
+				numArr = numArr.sort(function (a, b) {
+					return b - a;
+				});
+
+				this.addToLowestSet(numArr, zeroArr, sets);
+			}
+		}, {
+			key: 'addToLowestSet',
+			value: function addToLowestSet(a, z, s) {
+				if (a.length < 1) return s;
+
+				var index = z.indexOf(Math.min.apply(Math, z));
+				z[index] = z[index] + a[0];
+				s[index] = s[index] + a[0] + ",";
+				a.shift();
+				this.addToLowestSet(a, z, s);
 			}
 		}]);
 
@@ -19758,6 +19783,98 @@
 	})(_react.Component);
 
 	exports.default = First;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Second = (function (_Component) {
+		_inherits(Second, _Component);
+
+		function Second(props) {
+			_classCallCheck(this, Second);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Second).call(this, props));
+
+			_this.state = {
+				numbers: []
+			};
+			return _this;
+		}
+
+		_createClass(Second, [{
+			key: "onClickAdd",
+			value: function onClickAdd(e) {
+				this._input;
+				var numbers = this.state.numbers;
+
+				var value = this._input.value;
+
+				numbers.push(parseInt(value));
+
+				this.setState({
+					numbers: numbers
+				});
+
+				this._input.value = "";
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this2 = this;
+
+				var numbers = this.state.numbers;
+
+				return _react2.default.createElement(
+					"div",
+					null,
+					_react2.default.createElement(
+						"h1",
+						null,
+						"Second question"
+					),
+					_react2.default.createElement("input", { type: "text", ref: function ref(c) {
+							return _this2._input = c;
+						} }),
+					_react2.default.createElement(
+						"button",
+						{ onClick: this.onClickAdd.bind(this) },
+						"Add number"
+					),
+					_react2.default.createElement(
+						"button",
+						null,
+						"Check"
+					),
+					numbers
+				);
+			}
+		}]);
+
+		return Second;
+	})(_react.Component);
+
+	exports.default = Second;
 
 /***/ }
 /******/ ]);
