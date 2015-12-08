@@ -19831,7 +19831,6 @@
 						_react2.default.createElement(
 							"tr",
 							null,
-							_react2.default.createElement("td", null),
 							numbers.map(function (val, i) {
 								return _react2.default.createElement(
 									"td",
@@ -19853,65 +19852,117 @@
 	var Second = (function (_Component2) {
 		_inherits(Second, _Component2);
 
-		function Second(props) {
+		function Second() {
 			_classCallCheck(this, Second);
 
-			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Second).call(this, props));
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Second).call(this));
 
 			_this2.state = {
-				numbers: []
+				numbers: [],
+				display: false
 			};
 			return _this2;
 		}
 
 		_createClass(Second, [{
-			key: "onClickAdd",
-			value: function onClickAdd(e) {
-				this._input;
-				var numbers = this.state.numbers;
-
-				var value = this._input.value;
-
-				this._input.value = "";
-
-				numbers.push(parseInt(value));
-
-				this.setState({
-					numbers: numbers
-				});
-			}
-		}, {
 			key: "render",
 			value: function render() {
 				var _this3 = this;
 
-				var numbers = this.state.numbers;
+				var _state = this.state;
+				var numbers = _state.numbers;
+				var display = _state.display;
+				var consecutive = _state.consecutive;
 
-				var showTable = numbers.length ? _react2.default.createElement(Table, { numbers: numbers }) : "fill in the numbers";
+				var showTable = numbers.length ? _react2.default.createElement(Table, { numbers: numbers }) : "Fill in the numbers";
+				var message;
+
+				if (display) message = consecutive ? "This table is consecutive." : "This table is not consecutive.";
 
 				return _react2.default.createElement(
 					"div",
 					null,
 					_react2.default.createElement(
-						"h1",
+						"h2",
 						null,
 						"Second question"
 					),
-					_react2.default.createElement("input", { type: "text", ref: function ref(c) {
-							return _this3._input = c;
-						} }),
 					_react2.default.createElement(
-						"button",
-						{ onClick: this.onClickAdd.bind(this) },
-						"Add number"
-					),
-					_react2.default.createElement(
-						"button",
+						"p",
 						null,
-						"Check"
+						_react2.default.createElement("input", { type: "text", ref: function ref(c) {
+								return _this3._input = c;
+							} }),
+						_react2.default.createElement(
+							"button",
+							{ onClick: this.clickHandler.bind(this) },
+							"Add number"
+						),
+						_react2.default.createElement(
+							"button",
+							{ onClick: this.checkHandler.bind(this) },
+							"Check"
+						)
 					),
-					showTable
+					showTable,
+					_react2.default.createElement(
+						"p",
+						null,
+						message
+					)
 				);
+			}
+		}, {
+			key: "clickHandler",
+			value: function clickHandler(e) {
+				var numbers = this.state.numbers;
+
+				var val = parseInt(this._input.value);
+
+				this._input.value = "";
+
+				//We should validate...
+				numbers.push(val);
+
+				this.setState({
+					numbers: numbers,
+					display: false
+				});
+			}
+		}, {
+			key: "checkHandler",
+			value: function checkHandler(e) {
+				var numbers = this.state.numbers;
+
+				var display = numbers.length > 1;
+
+				this.setState({
+					numbers: numbers,
+					display: display,
+					consecutive: this.calculateConsecutive(numbers)
+				});
+			}
+		}, {
+			key: "calculateConsecutive",
+			value: function calculateConsecutive(arr) {
+				var len = arr.length;
+				if (len < 2) return false;
+
+				//This is also consecutive: 12 14 16 18 or 3 2 1
+				var step = arr[1] - arr[0];
+
+				for (var i = 1; i < len; i++) {
+					if (!this.checkConsecutive(arr[i - 1], arr[i], step)) return false;
+				}
+
+				return true;
+			}
+		}, {
+			key: "checkConsecutive",
+			value: function checkConsecutive(a, b, step) {
+				if (b - a == step) return true;
+
+				return false;
 			}
 		}]);
 
